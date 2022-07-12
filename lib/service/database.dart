@@ -9,6 +9,7 @@ import 'package:uuid/uuid.dart';
 
 import '../controller/home_controller.dart';
 import '../model/real_purchase.dart';
+import 'api.dart';
 
 class Database {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -59,6 +60,19 @@ class Database {
                 .collection(purchaseCollection)
                 .doc(model.id)
                 .set(purchaseModel).then((value) async{
+
+                  //Push Notification
+             try {
+                Api.sendPush(
+                        "အော်ဒါတင်ခြင်း",
+                        "🧑အမည်:${model.name}\n"
+                            "🏠လိပ်စာ: ${model.address}\n"
+                            "✍အီးမေးလ်: ${model.email}")
+                    .then((value) =>
+                        debugPrint("*****Success push notification*****"));
+              } catch (e) {
+                debugPrint("********Push Failed: $e**");
+              }  
                   int totalPay = 0;
                   for (var item in model.items) {
                     if(item.discountPrice! > 0){
@@ -94,6 +108,19 @@ class Database {
                 .collection(purchaseCollection)
                 .doc(model.id)
                 .set(model.toJson()).then((value) async{
+
+                  //Push Notification
+             try {
+                Api.sendPush(
+                        "အော်ဒါတင်ခြင်း",
+                        "🧑အမည်:${model.name}\n"
+                            "🏠လိပ်စာ: ${model.address}\n"
+                            "✍အီးမေးလ်: ${model.email}")
+                    .then((value) =>
+                        debugPrint("*****Success push notification*****"));
+              } catch (e) {
+                debugPrint("********Push Failed: $e**");
+              }  
                   int totalPay = 0;
                   for (var item in model.items) {
                     if(item.discountPrice! > 0){

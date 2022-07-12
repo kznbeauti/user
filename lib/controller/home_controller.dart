@@ -79,6 +79,22 @@ void setViewAllProducts(ViewAllModel value){
  final RxList<Advertisement> advertisementList = <Advertisement>[].obs;
  final RxList<Tag> tagsList = <Tag>[].obs;
 
+  var firstTimePressedCart = false.obs;
+
+ bool checkToAcceptOrder(){
+
+  if(myCart.isEmpty){
+    Get.snackbar('Error', "Cart is empty");
+    return false;
+  }else if(townShipNameAndFee.isEmpty){
+    Get.snackbar('Error', "Need to choose a township");
+    firstTimePressedCart.value = true;
+    return false;
+  }else{
+    return true;
+  }
+ }
+
  List<Cate.Category> getSubcategoryByMainId(String value){
    return categories.where((e) => e.mainId == value).toList();
  }
@@ -375,11 +391,17 @@ void setViewAllProducts(ViewAllModel value){
     }
     updateSubTotal(true);
   }
-
-  int subTotal = 0;
+int subTotal = 0;
   var promotionObxValue = 0.obs;
-  void updateSubTotal(bool isUpdate,{int? promotionValue}) {
-    promotionObxValue.value = promotionValue ?? 0;
+  void updateSubTotal(bool isUpdate,{String? promotionValue = ""}) {
+    debugPrint("*********PromotionCode: $promotionValue");
+    try{
+      promotionObxValue.value = promotionList.where((e) => e.code == promotionValue).first.promotionValue;
+    }catch(e){
+      promotionObxValue.value = 0;
+    }
+    // promotionObxValue.value = promotionValue!.isEmpty ? 0 : 
+    // promotionList.where((e) => e.id == promotionValue).first.promotionValue;
     if (subTotal != 0) {
       subTotal = 0;
     }
@@ -397,6 +419,7 @@ void setViewAllProducts(ViewAllModel value){
       update();
     }
   }
+
 
   //Get HiveItem
   HiveItem changeHiveItem(Product model) {
