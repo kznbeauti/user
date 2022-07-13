@@ -81,6 +81,16 @@ void setViewAllProducts(ViewAllModel value){
 
   var firstTimePressedCart = false.obs;
 
+  var purchaseId = "".obs;
+
+  void setPurchaseId(String id) {
+    if (purchaseId.value == id) {
+      purchaseId.value = "";
+    } else {
+      purchaseId.value = id;
+    }
+  }
+
  bool checkToAcceptOrder(){
 
   if(myCart.isEmpty){
@@ -413,7 +423,7 @@ int subTotal = 0;
          price += myCart[i].price * myCart[i].count;
      }
     }
-    subTotal =  price;
+    subTotal =  price - promotionObxValue.value;
     debugPrint("*************$subTotal");
     if (isUpdate) {
       update();

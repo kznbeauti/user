@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:kozarni_ecome/controller/home_controller.dart';
 import 'package:kozarni_ecome/data/constant.dart';
 import 'package:kozarni_ecome/routes/routes.dart';
+import 'package:kozarni_ecome/screen/view/order_history.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../utils/utils.dart';
@@ -170,6 +171,23 @@ class _LoginUser extends StatelessWidget {
               );
             }),
             const SizedBox(height: 40),
+             Align(
+              alignment: Alignment.bottomCenter,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                  ),
+                  onPressed: () {
+                    Get.to(() => OrderHistory());
+                  },
+                  child: Text("Order History",
+                      style: TextStyle(
+                        fontSize: 16,
+                        letterSpacing: 2,
+                        wordSpacing: 2,
+                        color: Colors.white,
+                      ))),
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(

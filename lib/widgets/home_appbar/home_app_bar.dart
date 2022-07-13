@@ -7,7 +7,10 @@ import '../../data/constant.dart';
 import '../../routes/routes.dart';
 
 class HomeAppBar extends StatelessWidget with PreferredSizeWidget{
-  const HomeAppBar({ Key? key }) : super(key: key);
+  final String? title;
+  const HomeAppBar({ 
+    this.title = "DELUX BEAUTI",
+    Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget{
         backgroundColor: appBarColor,
         elevation: 0,
         title: Text(
-          "DELUX BEAUTI",
+          title!,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
